@@ -9,73 +9,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
-  <style>
-    /* Estilos básicos para quitar márgenes y hacer el visor a pantalla completa */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow: hidden;
-    }
-
-    #panorama {
-      width: 100vw;
-      height: 100vh;
-    }
-
-    /* Estilos para simular la integración de FOL, Estética y Sanidad */
-    #modal-riesgo {
-      display: none;
-      /* Oculto por defecto */
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      z-index: 10;
-      width: 80%;
-      max-width: 450px;
-    }
-
-    #modal-riesgo h2 {
-      color: #d9534f;
-      margin-top: 0;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 10px;
-    }
-
-    .departamento {
-      margin-bottom: 15px;
-    }
-
-    .departamento span {
-      display: block;
-      background: #f9f9f9;
-      padding: 10px;
-      border-left: 4px solid #0275d8;
-      border-radius: 4px;
-      margin-top: 5px;
-    }
-
-    .btn-cerrar {
-      background: #333;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 6px;
-      width: 100%;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-
-    .btn-cerrar:hover {
-      background: #555;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -100,48 +34,10 @@
       <span id="texto-cura"></span>
     </div>
 
-    <button class="btn-cerrar" onclick="cerrarModal()">Entendido, volver al escenario</button>
+    <button id="btn-cerrar" class="btn-cerrar">Entendido, volver al escenario</button>
   </div>
 
-  <script>
-    // Inicializar el visor 360
-    const visor = pannellum.viewer('panorama', {
-      "type": "equirectangular",
-      "panorama": "https://pannellum.org/images/bma-0.jpg", // Imagen 360 pública de ejemplo
-      "autoLoad": true,
-      "compass": true, // Añade una brújula
-      "hotSpots": [
-        {
-          "pitch": -12, // Coordenada vertical (arriba/abajo)
-          "yaw": 110,   // Coordenada horizontal (izquierda/derecha)
-          "type": "info",
-          "text": "¡Peligro! Haz clic aquí",
-          "clickHandlerFunc": mostrarConsecuencias, // Función a ejecutar al hacer clic
-          "clickHandlerArgs": {
-            "riesgo": "Atrapamiento por no usar los EPIs adecuados al manipular maquinaria.",
-            "dano": "(Aquí iría la foto de Imagen Personal mostrando el traumatismo).",
-            "cura": "Inmovilización de la zona afectada y traslado al centro médico."
-          }
-        }
-      ]
-    });
-
-    // Lógica para conectar el escenario virtual con las consecuencias
-    function mostrarConsecuencias(evt, args) {
-      // Inyectamos los datos en el modal
-      document.getElementById('texto-riesgo').innerText = args.riesgo;
-      document.getElementById('texto-dano').innerText = args.dano;
-      document.getElementById('texto-cura').innerText = args.cura;
-
-      // Mostramos la ventana emergente
-      document.getElementById('modal-riesgo').style.display = 'block';
-    }
-
-    function cerrarModal() {
-      // Ocultamos la ventana emergente
-      document.getElementById('modal-riesgo').style.display = 'none';
-    }
-  </script>
+  <script src="main.js"></script>
 </body>
 
 </html>
